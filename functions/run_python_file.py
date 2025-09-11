@@ -1,6 +1,8 @@
+import os
+import subprocess
+from google.genai import types
 def run_python_file(working_directory, file_path, args=[]):
-    import os
-    import subprocess
+    
 
     path = os.path.join(working_directory, file_path)
    
@@ -34,4 +36,16 @@ def run_python_file(working_directory, file_path, args=[]):
             return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
         
     
-
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description=f"run a python file in the working directory with optional arguments.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The working directory to run  the  file ,  file path to the file and optional arguments to be accepted into the function",
+            ),
+        },
+    ),
+)
