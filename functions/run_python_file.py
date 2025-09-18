@@ -1,15 +1,15 @@
 import os
 import subprocess
 from google.genai import types
-def run_python_file(working_directory, file_path, args=[]):
+def run_python_file(working_directory, directory, args=[]):
     
 
-    path = os.path.join(working_directory, file_path)
+    path = os.path.join(working_directory, directory)
    
     oscwd = os.getcwd() 
     new_file = os.path.abspath(path) 
-    if file_path.startswith('..'):
-        return f'Error: Cannot execute "{file_path}" as it is outside'
+    if directory.startswith('..'):
+        return f'Error: Cannot execute "{directory}" as it is outside'
     else:
         if new_file.startswith(oscwd):
             if os.path.isfile(path):
@@ -31,9 +31,9 @@ def run_python_file(working_directory, file_path, args=[]):
                 else:
                     return "not a python file"
             else:
-                return f'Error: File "{file_path}" not found.'
+                return f'Error: File "{directory}" not found.'
         else:
-            return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
+            return f'Error: Cannot execute "{directory}" as it is outside the permitted working directory'
         
     
 schema_run_python_file = types.FunctionDeclaration(

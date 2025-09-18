@@ -1,27 +1,27 @@
 import os
 from google.genai import types
 
-def write_file(working_directory, file_path, content):
+def write_file(working_directory, directory, content):
       
-      path=os.path.join(working_directory, file_path)
+      path=os.path.join(working_directory, directory)
       oscwd=os.getcwd()         
       new_file=os.path.abspath(path)
       if new_file.startswith(oscwd):                    
-            print(f'Writing to file: {file_path}')
+            print(f'Writing to file: {directory}')
             if os.path.exists(new_file):   
                 try:
                     with open(new_file, "w") as f:
                         f.write(content)
-                        return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+                        return f'Successfully wrote to "{directory}" ({len(content)} characters written)'
                 except Exception as e:
-                    return f'Error: Could not write to file "{file_path}". {str(e)}'               
+                    return f'Error: Could not write to file "{directory}". {str(e)}'               
             else:
-                print(f'Error: File not found creating new file : "{file_path}"')
+                print(f'Error: File not found creating new file : "{directory}"')
                 with open(new_file, "w") as f:
                     f.write(content)
-                    return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+                    return f'Successfully wrote to "{directory}" ({len(content)} characters written)'
       else :
-            return f'Error: Cannot write to "{file_path}" as it is outside the permitted working directory'      
+            return f'Error: Cannot write to "{directory}" as it is outside the permitted working directory'      
         
 schema_write_file = types.FunctionDeclaration(
     name="write_file",

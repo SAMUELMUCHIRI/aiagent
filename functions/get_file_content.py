@@ -2,9 +2,9 @@ import os
 from config import MAX_CHARS
 
 from google.genai import types
-def get_file_content(working_directory, file_path):
+def get_file_content(working_directory, directory):
     try:
-        path=os.path.join(working_directory, file_path)
+        path=os.path.join(working_directory, directory)
         oscwd=os.getcwd()   
 
         
@@ -17,18 +17,18 @@ def get_file_content(working_directory, file_path):
                         with open(new_file, "r") as f:
                             file_content_string = f.read() 
                             n_chars = len(file_content_string)
-                            print(f'File "{file_path}" read successfully.')
+                            print(f'File "{directory}" read successfully.')
                             if n_chars > MAX_CHARS:
-                                return file_content_string[0:MAX_CHARS] + f"[...File {file_path} truncated at {MAX_CHARS} characters]."                               
+                                return file_content_string[0:MAX_CHARS] + f"[...File {directory} truncated at {MAX_CHARS} characters]."                               
                             else:
                                 return file_content_string
                     except Exception as e:
-                        return f'Error: Could not read file "{file_path}". {str(e)}'                 
+                        return f'Error: Could not read file "{directory}". {str(e)}'                 
                                     
             else:
-                return  f'Error: File not found or is not a regular file: "{file_path}"'              
+                return  f'Error: File not found or is not a regular file: "{directory}"'              
         else :
-            return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
+            return f'Error: Cannot read "{directory}" as it is outside the permitted working directory'
 
            
             
